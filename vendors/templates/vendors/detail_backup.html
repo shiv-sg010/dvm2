@@ -1,0 +1,35 @@
+{% extends "vendors/base.html" %}
+{%block content %}
+{% if user.is_authenticated and user.is_vendor %}
+<br><br><br><br><br>
+<div class="design" style="text-align: center;">
+    <article class="content-section">
+        <div class="media-body" style="text-align: left;">
+            <div class="article-metadata">
+                <span class="mr-2">{{ object.vendor }}</span>
+            </div>
+            <img class="img-thumbnail account-img" src="{{object.image.url}}">
+            <h4 class="article-title">{{ object.title }}</h4>
+            <h7 class="article-title">{{ object.description }}</h7>
+            <br>
+            <br>
+            <p class="article-title">Units: {{ object.units }}</p>
+            <p class="article-content">Price:  &nbsp;₹ {{ object.price }}</p>
+            {% if object.vendor == user %}
+              <br>
+              <div>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'item-update' object.id%}">Update</button></a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'item-delete' object.id%}">Delete</button></a>
+              </div>
+            {% endif %}
+        </div>
+        <br>
+    </article>
+</div>
+{%else%}
+    <h1 style="color: red;" >&nbsp;Error 404!</h1>
+    <br>
+    <h3 > &nbsp;Page Not Found.</h3>
+    <h6><span style="font-weight: normal"><a class="ml-2" href="{% url 'vendor-login'%}"> &nbsp;Log in Again.</a></span></h6>
+{%endif%}
+{% endblock content %}

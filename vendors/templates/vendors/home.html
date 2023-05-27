@@ -1,0 +1,61 @@
+{% extends "vendors/base.html" %}
+{%block content %}
+{% if user.is_authenticated and user.is_vendor %}
+{% if messages %}
+{%for message in messages%}
+<div class='alert alert-{{message.tags}}'>
+    {{message}}
+    <br>
+</div>
+{% endfor %}
+{% endif %}
+<br><br><br><br>
+<div class="col-md-8" id="col-md-8">
+    {% for item in items %}
+            <article class="content-section">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <span class="mr-2" >{{ item.vendor }} &nbsp;</span>
+                        {% if item.quantity_purchased == item.most_buyed %}
+                                <b><span class="mr-2" style="color: orange" > &nbsp; Best seller </span></b>
+                        {% endif %}
+                    </div>
+                    <a href="{%url 'item-detail' item.id%}"><img class="img-thumbnail account-img" src="{{item.image.url}}"></a>
+                    <h5><a class="article-title" href="{%url 'item-detail' item.id%}">{{ item.title }}</a></h5>
+                    <p class="article-content">₹ {{ item.price }}</p>
+
+                </div>
+            </article>
+    {%endfor%}
+</div>
+<br><br><br><br><br>
+<div class="design" style="text-align-last: center;">  
+    {% if is_paginated %}
+
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number}}">Previous</a>
+        {%endif%}
+
+        {% for num in page_obj.paginator.page_range %}
+            {%if page_obj.number ==  num%}
+                <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number}}">Next</a>
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {%endif%}
+
+    {%endif%}
+</div>
+{%else%}
+    <h1 style="color: red;">&nbsp;Error 404!</h1>
+    <br>
+    <h3 > &nbsp;Page Not Found.</h3>
+    <h6><span style="font-weight: normal"><a class="ml-2" href="{% url 'vendor-login'%}"> &nbsp;Log in Again.</a></span></h6>
+{%endif%}
+
+{% endblock content %}

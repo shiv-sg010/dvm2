@@ -1,0 +1,43 @@
+{% extends "vendors/base.html" %}
+{%block content %}
+{% if user.is_authenticated and user.is_vendor %}
+
+<br><br><br><br>
+<div class="card">
+    <div class="row no-gutters">
+        <aside class="col-md-6" style="text-align: center";>
+<article class="gallery-wrap"> 
+<div class="img-big-wrap">
+  <div> <a href="#"><img src="{{object.image.url}}"></a></div>
+</div> 
+</article> <!-- gallery-wrap .end// -->
+        </aside>
+        <main class="col-md-6 border-left">
+<article class="content-body">
+<h2 class="title">{{ object.title }}</h2>
+<br>
+<b>&nbsp;₹ {{ object.price }}</b>
+<p><i>&nbsp;Sold by {{object.vendor}}</i></p>
+
+<p>&nbsp;{{ object.description }}</p>
+&nbsp;Total Units: {{ object.units }}
+<br>
+&nbsp;Units Purchased: {{ object.quantity_purchased }}
+<br>
+<p>&nbsp;Available Units: {{ object.units_available }}</p>
+<div>
+    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'item-update' object.id%}">Update</button></a>
+    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'item-delete' object.id%}">Delete</button></a>
+  </div>
+</article> 
+        </main> 
+    </div> 
+</div> 
+
+{%else%}
+    <h1 style="color: red;" >&nbsp;Error 404!</h1>
+    <br>
+    <h3 > &nbsp;Page Not Found.</h3>
+    <h6><span style="font-weight: normal"><a class="ml-2" href="{% url 'vendor-login'%}"> &nbsp;Log in Again.</a></span></h6>
+{%endif%}
+{% endblock content %}

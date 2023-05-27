@@ -1,0 +1,83 @@
+{% extends "vendors/base.html" %}
+{% load static%}
+{%block content %}
+{% if messages %}
+    {%for message in messages%}
+    <div class='alert alert-{{message.tags}}'>
+        {{message}}
+    </div>
+    {% endfor %}
+{% endif %}
+<section class="section-content padding-y">
+    <div class="container">
+    
+    <div class="row">
+        <main class="col-md-9">
+    <div class="card">
+    
+    <table class="table table-borderless table-shopping-cart">
+    <thead class="text-muted">
+    <tr class="small text-uppercase">
+      <th scope="col" width="200">Product</th>
+      <th scope="col" width="150">Ordered By</th>
+      <th scope="col" width="50">Quantity</th>
+      <th scope="col" width="100">Price</th>
+      <th scope="col" width="200">Order Placed On</th>
+      <th scope="col" width="200">Deliver To</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for orders in order %}
+                <tr>
+                    <td>
+                        <figure class="itemside">
+                            <div class="aside"><img  class="img-thumbnail account-img" src="{{orders.image.url}}" class="img-sm">
+                            <b style=font-size:20px; class="title text-dark">&nbsp;&nbsp;&nbsp;{{ orders.title}}</b></div>
+                        </figure>
+                    </td>
+                    <td>
+                        <div class="price-wrap">
+                            <var class="price">{{orders.customer}}</var>
+                        </div>
+                    </td>
+                    <td> 
+                        <div class="price-wrap">
+                            <var class="price">{{orders.quantity}}</var>
+                        </div>
+                    </td>
+                    <td> 
+                        <div class="price-wrap">
+                            <var class="price">₹{{ orders.get_price}}</var> 
+                            <br>
+                            <small class="text-muted"> ₹{{ orders.price }}/-</small> 
+                        </div> <!-- price-wrap .// -->
+                    </td>
+                    <td>
+                            <var class="price">{{orders.date_purchased}}</var>
+                    </td>
+                    <td>
+                         <var class="price">{{orders.customer.address}}</var>
+                    </td>
+                </tr>
+        {%endfor%}
+        </tbody>
+    </table>
+</div>
+</main> <!-- col.// -->
+<aside class="col-md-3">
+    <div class="card">
+        <div class="card-body">
+                <dl class="dlist-align">
+                    <a href="{% url 'order_excel' %}" class="btn btn-primary float-md-right"> Download Order </a>
+                </dl>
+                <hr>
+                
+        </div> <!-- card-body.// -->
+    </div>  <!-- card .// -->
+</aside> <!-- col.// -->
+</div>
+
+</div> <!-- container .//  -->
+</section>
+
+{% endblock content %}

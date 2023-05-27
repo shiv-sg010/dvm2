@@ -1,0 +1,40 @@
+{% extends "home/base.html" %}
+{%block content_body %}
+{% if user.is_authenticated and user.is_vendor %}
+<header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+      <div class="container">
+        <a class="navbar-brand mr-4" href="{%url 'homepage' %}">SHOPMART</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
+            <a class="nav-item nav-link" href="{%url 'dashboard' request.user.username %}">Home</a>
+            <a class="nav-item nav-link" >About</a>
+            <a class="nav-item nav-link" >Contact Us</a>
+          </div>
+          <!-- Navbar Right Side -->
+          <div class="navbar-nav"> 
+            <a class="nav-item nav-link" >Hello, {{request.user.username}}</a>
+            <a class="nav-item nav-link" href="{%url 'vendor-profile'%}">Profile</a>
+            <a class="nav-item nav-link" href="{%url 'orders'%}">Orders</a>
+            <a class="nav-item nav-link" href="{%url 'item-create'%}">Add Item</a>
+            <span class="nav-item nav-link" onclick="history.back()"><-Back</span>
+            <a class="nav-item nav-link" href="{%url 'vendor-logout'%}">Logout</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+{%else%}
+    <h1 style="color: red;" >&nbsp;Error 404!</h1>
+    <br>
+    <h3> &nbsp;Page Not Found.</h3>
+    <h6><span style="font-weight: normal"><a class="ml-2" href="{% url 'vendor-login'%}"> &nbsp;Log in Again.</a></span></h6>
+{%endif%}
+
+{% endblock  %}

@@ -1,0 +1,36 @@
+{% extends "customers/base.html" %}
+{% load static%}
+{%block content %}
+<br><br><br><br><br>
+<div class="design" style="text-align: center;">
+    <article class="content-section">
+        <div class="media-body" style="text-align: left;">
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'user-items' object.vendor.username %}">{{ object.vendor }}</a>
+                    <div class="wrapper" style="display: inline-block; margin-left: 120px; ">
+                        <input type="checkbox" class="heart-checkbox" id="heart-checkbox">
+                        <label class="heart" for="heart-checkbox"></label>
+                    </div>
+            </div>
+            <img class="img-thumbnail account-img" src="{{object.image.url}}">
+            <h4 class="article-title">{{ object.title }}</h4>
+            <h7 class="article-title">{{ object.description }}</h7>
+            <br>
+            <br>
+            <p class="article-title">Units: {{ object.units }}</p>
+            {% if object.units == 1%}
+                <p class="article-title" style="color: red;">Hurry only 1 left!</p>
+            {% elif object.units == none%}
+                <p class="article-title" style="color: red;">Sorry. Out of stock!</p>
+            {%endif%}
+            <p class="article-content">Price:  &nbsp;₹ {{ object.price }}</p>
+            {%if object.units != none%}
+                <br>
+                <a button class="btn btn-outline-info" type="submit" href="#">Add to cart</button></a>
+                <a button class="btn btn-outline-info" type="submit" href="#">Buy Now</button></a>
+            {%endif%}
+        </div>
+        <br>
+    </article>
+</div>
+{% endblock content %}

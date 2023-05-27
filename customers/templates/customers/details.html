@@ -1,0 +1,51 @@
+{% extends "customers/base.html" %}
+{% load static%}
+{%block content %}
+{% if messages %}
+    {%for message in messages%}
+    <div class='alert alert-{{message.tags}}'>
+        {{message}}
+    </div>
+{% endfor %}
+{% endif %}
+<br><br><br><br>
+<div class="card">
+    <div class="row no-gutters">
+        <aside class="col-md-6" style="text-align: center";>
+<article class="gallery-wrap"> 
+<div class="img-big-wrap">
+  <div> <a href="#"><img src="{{object.image.url}}"></a></div>
+</div> 
+</article> <!-- gallery-wrap .end// -->
+        </aside>
+        <main class="col-md-6 border-left">
+<article class="content-body">
+<h2 class="title">{{ object.title }}</h2>
+<br>
+<h5>&nbsp;₹ {{ object.price }}</h5>
+<p><i>&nbsp;Sold by {{object.vendor}}</i></p>
+{% if object.units_available == 0 %}
+    <p  style="color: red;">&nbsp;Sorry. Out of stock!</p>
+{% else%}
+    {% if object.units_available == 1 %}
+        <p  style="color: red;">&nbsp;Hurry only 1 left!</p>
+    {%endif%}
+    <p>&nbsp;Available Units: {{ object.units_available }}</p>
+    <p>&nbsp;{{ object.description }}</p>
+    <br>
+        {%if user.is_authenticated and user.is_customer%}
+            <a href="{% url 'add_to_wishlist' object.id%}" class="btn  btn-primary"> Add to Wishlist</a>
+            <a href="{%url 'add_to_cart' object.id %}" class="btn  btn-outline-primary"> <span class="text">Add to cart</span> <i class="fa fa-shopping-cart"></i>  </a>
+        {%else%}
+            <a href="{% url 'customer-login' %}" class="btn  btn-primary"> Add to Wishlist</a>
+            <a href="{%url 'customer-login' %}" class="btn  btn-outline-primary"> <span class="text">Add to cart</span> <i class="fa fa-shopping-cart"></i>  </a>
+        {%endif%}
+    </article> <!-- product-info-aside .// -->
+            </main> <!-- col.// -->
+        </div> <!-- row.// -->
+    </div> <!-- card.// -->
+{%endif%}
+
+
+{% endblock content %}
+

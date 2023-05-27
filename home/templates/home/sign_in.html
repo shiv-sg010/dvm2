@@ -1,0 +1,35 @@
+{% extends "customers/base.html" %}
+{%block content %}
+{% if messages %}
+        {%for message in messages%}
+           {%if message.tags != "success" %}
+                <div class='alert alert-{{message.tags}}'>
+                         {{message}}
+                </div>
+            {%endif%}
+        {% endfor %}
+{% endif %}
+<br><br>
+    <div style="width:image width px; font-size:80%; text-align:center;">
+            <img src="https://www.commbox.io/wp-content/uploads/2019/10/11-1-1024x600.jpg" alt="Quiz Master" width="30%" height="80%" style="padding-bottom:0.5em;" />
+            <figcaption> <small class="text-muted">
+               <a button class="btn btn-outline-info" type="submit" href="{% url 'customer-login' %}">Sign in as Customer</button></a>
+            </small></figcaption>
+    </div>
+    <br>
+    <br>
+        <div style="width:image width px; font-size:80%; text-align:center;">
+                <img src="https://sabpaisa.in/wp-content/uploads/2022/08/Vendor-Payment-banner.png" alt="Quiz Master" width="30%" height="80%" style="padding-bottom:0.5em;" />
+                <figcaption> <small class="text-muted">
+                   <a button class="btn btn-outline-info" type="submit" href="{% url 'vendor-login' %}">Sign in as Vendor</button></a>
+                </small></figcaption>
+        </figure>
+        </div>
+            <br>
+            <br>
+    <div style="width:image width px; font-size:80%; text-align:center;">
+            <small class="text-muted">
+                <h6><span style="font-weight: normal"><a class="ml-2" href="{% url 'homepage'%}">Skip For Now</a></span></h6>
+            </small>
+    </div>
+{% endblock content %}

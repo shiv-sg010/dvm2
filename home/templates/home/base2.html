@@ -1,0 +1,23 @@
+{% extends "home/base.html" %}
+{%block content_body%}
+<header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+      <div class="container">
+        <div class="navbar-brand mr-4" >SHOPMART</div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
+            <a class="nav-item nav-link" href="{% url 'e-home' %}">Home</a>
+            <a class="nav-item nav-link" href="{% url 'e-about' %}">About</a>
+            <a class="nav-item nav-link" href="{% url 'e-home' %}">Contact Us</a>
+          </div>
+          <div class="navbar-nav"><span class="nav-item nav-link" onclick="history.back()"><-Back</span></div>
+        </div>
+    </nav>
+  </header>
+  <div class="container">
+         {% block content %}{% endblock %}
+    </div>
+{% endblock %}
